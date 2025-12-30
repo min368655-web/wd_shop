@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>웨딩샵 공지사항</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Malgun Gothic', sans-serif;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+        }
+
+        .header {
+            padding: 30px 40px;
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header-left h1 {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .search-container {
+            position: relative;
+        }
+
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .search-box input {
+            width: 300px;
+            padding: 8px 35px 8px 15px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #999;
+        }
+
+        .search-box button {
+            position: absolute;
+            right: 8px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 5px;
+            color: #666;
+        }
+
+        .board-list {
+            padding: 0;
+        }
+
+        .board-item {
+            padding: 20px 40px;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 20px;
+            transition: background 0.2s;
+            cursor: pointer;
+        }
+
+        .board-item:hover {
+            background: #fafafa;
+        }
+
+        .board-content {
+            flex: 1;
+        }
+
+        .board-category {
+            display: inline-block;
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        .category-notice {
+            color: #9b59b6;
+        }
+
+        .category-info {
+            color: #3498db;
+        }
+
+        .board-title {
+            font-size: 15px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .board-meta {
+            display: flex;
+            gap: 12px;
+            font-size: 13px;
+            color: #999;
+        }
+
+        .board-stats {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #999;
+            font-size: 13px;
+        }
+
+        .comment-count {
+            color: #333;
+            font-weight: 500;
+        }
+
+        .write-button-container {
+            padding: 20px 40px;
+            display: flex;
+            justify-content: flex-end;
+            border-top: 1px solid #e5e5e5;
+        }
+
+        .write-button {
+            padding: 10px 20px;
+            background: white;
+            color: #333;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+        }
+
+        .write-button:hover {
+            background: #f8f9fa;
+            border-color: #999;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 5px;
+            padding: 40px;
+        }
+
+        .page-btn {
+            min-width: 32px;
+            height: 32px;
+            border: 1px solid #e5e5e5;
+            background: white;
+            cursor: pointer;
+            font-size: 13px;
+            color: #666;
+            transition: all 0.2s;
+            padding: 0 10px;
+        }
+
+        .page-btn:hover:not(:disabled) {
+            background: #f8f9fa;
+            border-color: #999;
+        }
+
+        .page-btn.active {
+            background: #333;
+            color: white;
+            border-color: #333;
+            font-weight: 600;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .hero-banner {
+            height: 300px;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), 
+                        url('https://images.unsplash.com/photo-1519741497674-611481863552?w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero-content {
+            text-align: center;
+            z-index: 1;
+        }
+
+        .hero-content h1 {
+            font-size: 42px;
+            font-weight: 300;
+            letter-spacing: 3px;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.3);
+        }
+
+        .hero-content p {
+            font-size: 16px;
+            letter-spacing: 2px;
+            opacity: 0.95;
+            text-shadow: 1px 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .accent-bar {
+            height: 2px;
+            background: linear-gradient(90deg, #d4a574 0%, #f5d5c3 50%, #d4a574 100%);
+        }
+
+        @media (max-width: 768px) {
+            .hero-banner {
+                height: 200px;
+            }
+
+            .hero-content h1 {
+                font-size: 28px;
+            }
+
+            .hero-content p {
+                font-size: 14px;
+            }
+
+            .header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+                padding: 20px;
+            }
+
+            .search-box input {
+                width: 100%;
+            }
+
+            .board-item {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 20px;
+            }
+
+            .board-stats {
+                width: 100%;
+                justify-content: flex-end;
+            }
+
+            .write-button-container {
+                padding: 15px 20px;
+            }
+
+            .pagination {
+                padding: 30px 20px;
+                gap: 3px;
+                flex-wrap: wrap;
+            }
+
+            .page-btn {
+                min-width: 28px;
+                height: 28px;
+                font-size: 12px;
+            }
+        }
+        
+        /* ---------- BACK BUTTON (TOP LEFT FIXED) ---------- */
+.back-btn {
+  position: fixed;
+  top: 20px;
+  left: 24px;
+  z-index: 1200;
+
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: #fff;
+
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(6px);
+
+  transition: 0.3s;
+}
+
+.back-btn:hover {
+  background: rgba(0,0,0,0.65);
+  color: #fff;
+}
+
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">← Back</a>
+    <div class="hero-banner">
+        <div class="hero-content">
+            <h1>Wedding Reviews</h1>
+            <p>소중한 순간의 이야기를 나눠주세요</p>
+        </div>
+    </div>
+    <div class="accent-bar"></div>
+    <div class="container">
+        <div class="header">
+            <div class="header-left">
+                <h1>후기게시판 129</h1>
+            </div>
+            <div class="search-container">
+                <div class="search-box">
+                    <input type="text" placeholder="Search">
+                    <button>🔍</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="board-list" id="boardList"></div>
+
+        <div class="write-button-container">
+            <button class="write-button">글쓰기</button>
+        </div>
+
+        <div class="pagination" id="pagination"></div>
+    </div>
+
+    <script>
+        const notices = [
+            {
+                category: '클래식 후기 게시판',
+                type: 'notice',
+                title: '클린존체험 이자율 혜택플랜너님 혜택박람회 성공자전환후기 [래전문트]',
+                author: '모모',
+                date: '2025-12-17',
+                views: 7,
+                likes: 0,
+                comments: 0
+            },
+            {
+                category: '클래식 후기 게시판',
+                type: 'notice',
+                title: '클린존 이자율 혜택플랜과 성공후기 강추 후기',
+                author: '모모',
+                date: '2025-12-13',
+                views: 15,
+                likes: 0,
+                comments: 0
+            },
+            {
+                category: '클래식 후기 게시판',
+                type: 'notice',
+                title: '클린존체험 저렴수 실질알아낼 성질알콘 예비투투의 참좋효기!(성유선터 혜택박람회)',
+                author: '모모',
+                date: '2025-12-13',
+                views: 10,
+                likes: 0,
+                comments: 0
+            },
+            {
+                category: '클래식 후기 게시판',
+                type: 'notice',
+                title: '클린존체험 혜택박람회알에서 만난 한 신의 시어터 같은 인조리 혜택플랜너님',
+                author: '모모',
+                date: '2025-12-13',
+                views: 7,
+                likes: 0,
+                comments: 0
+            },
+            {
+                category: '클래식 후기 게시판',
+                type: 'notice',
+                title: '성취혜택박람회 클린존체험 남측정통래터 후기',
+                author: '모모',
+                date: '2025-12-13',
+                views: 7,
+                likes: 0,
+                comments: 0
+            },
+            {
+                category: '박람회 후기 게시판',
+                type: 'info',
+                title: '혜택박람회 선도',
+                author: '모모',
+                date: '2025-12-13',
+                views: 9,
+                likes: 0,
+                comments: 0
+            },
+            {
+                category: '박람회 후기 게시판',
+                type: 'info',
+                title: '251208서울혜택박람회 후기 실성성 성유선터',
+                author: '모모',
+                date: '2025-12-13',
+                views: 4,
+                likes: 0,
+                comments: 0
+            },
+            {
+                category: '박람회 후기 게시판',
+                type: 'info',
+                title: '실측치는 클린존 혜택박람회 후기',
+                author: '관리자',
+                date: '2025-12-03',
+                views: 8,
+                likes: 0,
+                comments: 0
+            },
+            {
+                category: '박람회 후기 게시판',
+                type: 'info',
+                title: '클린존체험혜택박람회 후기',
+                author: '모모',
+                date: '2025-11-28',
+                views: 18,
+                likes: 0,
+                comments: 0
+            },
+            {
+                category: '클래식 후기 게시판',
+                type: 'notice',
+                title: '배돈혜택박람회 후기! 클린존체험로에서 만난 강점도 클래너님',
+                author: '모모',
+                date: '2025-11-28',
+                views: 9,
+                likes: 0,
+                comments: 0
+            }
+        ];
+
+        let currentPage = 1;
+        const itemsPerPage = 10;
+        const totalPages = 9;
+
+        function renderNotices() {
+            const boardList = document.getElementById('boardList');
+            
+            boardList.innerHTML = notices.map(notice => `
+                <div class="board-item">
+                    <div class="board-content">
+                        <div class="board-category ${notice.type === 'notice' ? 'category-notice' : 'category-info'}">
+                            [${notice.category}]
+                        </div>
+                        <div class="board-title">${notice.title}</div>
+                        <div class="board-meta">
+                            <span>${notice.author}</span>
+                            <span>${notice.date}</span>
+                            <span>조회수 ${notice.views}</span>
+                            <span>♥ ${notice.likes}</span>
+                        </div>
+                    </div>
+                    <div class="board-stats">
+                        <div class="stat-item">
+                            💬 <span class="comment-count">${notice.comments}</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function renderPagination() {
+            const pagination = document.getElementById('pagination');
+            let buttons = '';
+
+            buttons += `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">◀</button>`;
+
+            for (let i = 1; i <= totalPages; i++) {
+                buttons += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
+            }
+
+            buttons += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">▶</button>`;
+
+            pagination.innerHTML = buttons;
+        }
+
+        function changePage(page) {
+            if (page < 1 || page > totalPages) return;
+            currentPage = page;
+            renderNotices();
+            renderPagination();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        renderNotices();
+        renderPagination();
+
+        document.querySelector('.write-button').addEventListener('click', () => {
+            alert('글쓰기 페이지로 이동합니다.');
+        });
+
+        document.querySelector('.search-box button').addEventListener('click', () => {
+            const searchInput = document.querySelector('.search-box input');
+            const keyword = searchInput.value.trim();
+            if (keyword) {
+                alert(`"${keyword}" 검색 결과를 표시합니다.`);
+            }
+        });
+
+        document.querySelector('.search-box input').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                document.querySelector('.search-box button').click();
+            }
+        });
+    </script>
+</body>
+</html>
