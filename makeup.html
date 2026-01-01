@@ -94,6 +94,116 @@ section {
   color: #111;
 }
 
+/* ---------- HAIR & MAKE-UP FEATURE SECTION ---------- */
+.hair-makeup-feature {
+  padding: 90px 8%;
+  background:
+    linear-gradient(180deg, #f9f7f4 0%, #eeeae3 100%);
+}
+
+.feature-inner {
+  max-width: 880px;
+  margin: 0 auto;
+  padding: 60px 70px;
+  text-align: center;
+
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: 0 18px 50px rgba(0,0,0,0.08);
+}
+
+.feature-inner .eyebrow {
+  display: inline-block;
+  margin-bottom: 18px;
+  font-size: 0.75rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #b8a38a;
+}
+
+.feature-inner h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  line-height: 1.4;
+  margin-bottom: 22px;
+  color: #222;
+}
+
+.feature-inner .desc {
+  font-size: 0.9rem;
+  line-height: 1.7;
+  color: #555;
+  margin-bottom: 34px;
+}
+
+.feature-btn {
+  display: inline-block;
+  padding: 12px 32px;
+  border-radius: 30px;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+
+  color: #fff;
+  background: linear-gradient(135deg, #c9b59a, #b49a7d);
+
+  transition: 0.3s ease;
+}
+
+.feature-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 24px rgba(180,154,125,0.45);
+}
+
+/* 첫 번째 메이크업 섹션 하단 간격 줄이기 */
+.makeup-section {
+  padding-bottom: 60px; /* 기본 120px → 60px */
+}
+
+/* ---------- FOOTER ---------- */
+.footer {
+  background: #0b0b0b;
+  color: #aaa;
+  font-size: 0.8rem;
+    margin-top: 50px; 
+}
+
+.footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 50px 8% 35px;
+
+  display: grid;
+  grid-template-columns: 1.2fr 1fr;
+  gap: 40px;
+}
+
+.footer-brand h3 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.2rem;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.footer-brand p {
+  line-height: 1.6;
+}
+
+.footer-info p {
+  line-height: 1.8;
+}
+
+.footer-copy {
+  grid-column: 1 / -1;
+  margin-top: 25px;
+  padding-top: 20px;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  font-size: 0.75rem;
+  text-align: center;
+  color: #777;
+}
+
+
 </style>
 </head>
 
@@ -107,7 +217,7 @@ section {
   <h1>Wedding Makeup</h1>
 </header>
 
-<section>
+<section class="makeup-section">
   <div class="makeup-grid">
     <div class="makeup-item">
       <img src="images/make up4.jpg">
@@ -121,6 +231,52 @@ section {
     </div>
   </div>
 </section>
+
+
+<!-- HAIR & MAKE-UP FEATURE SECTION -->
+<!-- <section class="hair-makeup-feature">
+  <div class="feature-inner">
+    <span class="eyebrow">Hair & Make-up</span>
+
+    <h2>
+      섬세함이 웨딩을 물들이는 순간<br>
+      디테일의 미학을 완성하다
+    </h2>
+
+    <p class="desc">
+      웨딩 플랜에 꼭 필요한 제휴 헤어&메이크업샵을 엄선했습니다.<br>
+      중복 선택 시 추가 비용 없이, 취향에 맞는 샵 선택이 가능합니다.
+    </p>
+
+    <a href="#" class="feature-btn">무료 상담 신청</a>
+  </div>
+</section> -->
+
+<footer class="footer">
+  <div class="footer-inner">
+
+    <div class="footer-brand">
+      <h3>Eternal Love Wedding</h3>
+      <p>
+        당신의 가장 빛나는 하루를 디자인합니다.<br>
+        프리미엄 웨딩 · 드레스 · 스타일링
+      </p>
+    </div>
+
+    <div class="footer-info">
+      <p>서울시 강남구 웨딩로 123</p>
+      <p>T. 02-1234-5678</p>
+      <p>E. contact@eternallove.co.kr</p>
+    </div>
+
+    <div class="footer-copy">
+      © 2025 Eternal Love Wedding. All Rights Reserved.
+    </div>
+
+  </div>
+</footer>
+
+
 
 </body>
 </html>
